@@ -11,6 +11,8 @@ class OneToHundredStream extends Readable {
 
 		if (i > 100) {
 			//push é o método que uma readable/stream usa para fornecer informação para quem estiver consumindo ela.
+			/* this.push(null) sinaliza que não tenho mais nenhum conteúdo para mandar para o buffer
+			interno.*/
 			this.push(null)
 		} else {
 			const buf = Buffer.from(String(i))

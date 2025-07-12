@@ -15,12 +15,16 @@ class InverseNumberStream extends Transform {
 // req => ReadableStream
 // res => WritableStream
 
+/* Buffer é uma representação de um espaço na memória do computador usado
+para transitar dados de uma maneira muito rápida, para ser muito performático. 
+O Buffer guarda os dados de memória de forma binária */
+
 const server = http.createServer(async (req,res) => {
 	const buffers = []
 
 	//await dentro de uma stream aguarda cada pedaço da stream ser retornado.
 	for await (const chunk of req){
-		buffers.push(chunk)
+		buffers.push(chunk) //adicionando as parte do pacote dentro do array buffers.
 	}
 
 	const fullStreamContent = Buffer.concat(buffers).toString()
