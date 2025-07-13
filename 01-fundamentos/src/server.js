@@ -22,9 +22,7 @@ const server = http.createServer(async (req,res) => {
     await json(req, res)
 
     if(method == 'GET' && url == '/users'){
-        return res
-        .setHeaders('Content-type','application/json')
-        .end(JSON.stringify(users));
+        return res.end(JSON.stringify(users));
     }
     if(method == 'POST' && url == '/users'){
         const { name, email } = req.body;

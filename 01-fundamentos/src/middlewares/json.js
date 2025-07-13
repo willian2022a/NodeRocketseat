@@ -10,4 +10,7 @@ export async function json(req, res) {
   } catch {
     req.body = null
   }
+
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  res.setHeaders(headers)
 }
