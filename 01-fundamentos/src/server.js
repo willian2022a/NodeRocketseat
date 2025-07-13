@@ -1,4 +1,7 @@
 import http from 'node:http'
+/* quando estamos trabalhando com o type "module" é preciso colocar o tipo do arquivo 
+no final da importação, como abaixo que tem o json.js */
+import { json } from './middlewares/json.js'; 
 
 /*Stateful -> aplicação se salvar informações na memória e a partir do 
 momento em que essa aplicação é parada, essa informação é perdida.
@@ -13,8 +16,10 @@ parada, ao reiniciar irá se manter igual.
 
 const users = []
 
-const server = http.createServer((req,res) => {
+const server = http.createServer(async (req,res) => {
     const { method, url } = req;
+
+    await json(req, res)
 
     if(method == 'GET' && url == '/users'){
         return res
@@ -22,10 +27,11 @@ const server = http.createServer((req,res) => {
         .end(JSON.stringify(users));
     }
     if(method == 'POST' && url == '/users'){
+        const { name, email } = req.body;
         users.push({
             id: 1,
-            name: 'John Doe',
-            email:'johndoe@example.com'
+            name,
+            email
         });
         return res.writeHead(201).end(JSON.stringify(users))
     }
