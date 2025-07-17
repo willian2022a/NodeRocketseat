@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "will",
+      "email": "will@gmail.com"
+    },
+    {
+      "id": 1,
+      "name": "will3",
+      "email": "will3@gmail.com"
+    },
+    {
+      "id": "da1e498b-c689-4060-b9db-d3343241939e",
+      "name": "will4",
+      "email": "will4@gmail.com"
+    },
+    {
+      "id": "222caafb-79ad-4a47-a3de-7bf4988f99cd",
+      "name": "will5",
+      "email": "will5@gmail.com"
+    }
+  ]
+}
