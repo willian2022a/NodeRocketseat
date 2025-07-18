@@ -3,9 +3,7 @@ import http from 'node:http'
 no final da importação, como abaixo que tem o json.js */
 import { json } from './middlewares/json.js'; 
 
-import { Database } from './database.js';
-
-import { randomUUID } from 'node:crypto'
+import { routes } from './routes.js';
 
 /*Stateful -> aplicação se salvar informações na memória e a partir do 
 momento em que essa aplicação é parada, essa informação é perdida.
@@ -20,31 +18,20 @@ parada, ao reiniciar irá se manter igual.
 
 const users = [];
 
-const database = new Database();
-
 const server = http.createServer(async (req,res) => {
     const { method, url } = req;
 
     await json(req, res)
 
-    if(method == 'GET' && url == '/users'){
-        const users = database.select('users')
-        return res.end(JSON.stringify(users));
-    }
-    if(method == 'POST' && url == '/users'){
-        console.log('>> ', req.body)
-        const { name, email } = req.body;
-        const users = {
-            id: randomUUID(),
-            name,
-            email
-        };
+    const route = routes.find(route => {
+        return route.method == method && route.path == url;
+    });
 
-        console.log('>> users ',users)
-
-        database.insert('users',users)
-        return res.writeHead(201).end(JSON.stringify(users))
+    console.log(route)
+    if (route){
+        return route.handler(req,res)
     }
+
     return res.writeHead(404).end()
 })
 
